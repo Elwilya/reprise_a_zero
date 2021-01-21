@@ -1,30 +1,33 @@
+<?php include 'includes/header.php';?>
+
+
+<div style="display: flex; flex-direction: row; width: 100%; justify-content: space-around;">
 <?php
-include 'includes/Fonctions.php';
-include 'includes/Variables.php'
-?>
+$count = 0;
+foreach ($beanies as $beany) {
+    $count++;
+    if ($count > 3) {
+        break;
+    }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <table>
-    <tr>
-        <th>Nom</th>
-        <th>PrixHT</th>
-        <th>Prix</th>
-        <th>Description</th>
-    </tr>
-    <?php
-    /** @var array $beany */
-        foreach ($beanies as $beany) {
-            displayBeany($beany);
-        }
-    ?>
-    </table>
-</body>
-</html>
+    $name = $beany[PRODUCT_NAME];
+    $name .= ' (';
+    $name .= $beany['price'];
+    $name .= ' €)'; ?>
 
+
+<div class="card" style="width: 18rem;">
+    <img src="https://via.placeholder.com/150" class="card-img-top" alt="">
+    <div class="card-body">
+        <h5 class="card-title"><?= $name; ?></h5>
+        <p class="card-text"><?= $beany['description']; ?></p>
+    </div>
+</div>
+<?php
+} ?>
+</div>
+<a href="list.php" class="btn btn-primary">
+Voir tous les produits
+</a>
+
+ <?php include 'includes/footer.php';?>
