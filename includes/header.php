@@ -4,15 +4,22 @@ session_start();
 require_once 'includes/Fonctions.php';
 require_once 'includes/Variables.php';
 
-if (isset($_POST['username'])) {
-    $_SESSION['username'] = $_POST['username'];
-}
-var_dump($_SESSION);
+//if (isset($_POST['username'])) {
+//    $_SESSION['username'] = $_POST['username'];
+//}
+
+//if (!empty($_POST['username']) && !empty($_POST['password']) && //!$loginError) {
+//    $_SESSION['username'] = $_POST['username'];
+//    header('Location: index.php');
+//    $loginError = false;
+//}
+
 
 ?>
 
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,6 +51,9 @@ var_dump($_SESSION);
                 <li class="nav-item">
                     <a class="nav-link" href="login.php"><?= $_SESSION['username']; ?></a>
                 </li>
+                <li class="nav-item">
+                <a class="nav-link" href="logout.php">Déconnexion</a>
+            </li>
             <?php } else { ?>
             <li class="nav-item">
                 <a class="nav-link" href="login.php">Connexion</a>
@@ -53,3 +63,24 @@ var_dump($_SESSION);
         </ul>
     </div>
 </nav>
+
+    <?php
+    $login = null;
+    // On garde en mémoire si une erreur se trouve dans le formulaire
+    $loginError = false;
+    // On va mettre les différents messages dans un tableau (il peut y en avoir un pour le login, un pour le mot de passe)
+    $loginMessages = [];
+
+if (isset($_POST['username']) && empty($_POST['username'])) {
+    echo '<div class="alert alert-danger col-md-6 mx-auto my-5" role="alert">
+                nom d\'utilisateur incorrect
+                </div>';
+}
+    if (!empty($_POST['username']) && !empty($_POST['password']) && $_POST['password'] == $password) {
+        $_SESSION['username'] = $_POST['username'];
+        header('Location: index.php');
+    } elseif (!empty($_POST['username']) && isset($_POST['password'])) {
+        echo '<div class="alert alert-danger col-md-6 mx-auto my-5" role="alert">
+                Mot de passe incorrect
+                </div>';
+    }
