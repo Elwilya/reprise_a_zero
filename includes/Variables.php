@@ -30,3 +30,5 @@ $beanies = [
                 "description" => $description
             ]
         ];
+
+$password = 'toto';
